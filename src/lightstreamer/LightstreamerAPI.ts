@@ -110,7 +110,7 @@ export class LightstreamerAPI {
       MarketFields.ODDS,
     ];
 
-    if (this.marketSubscription && this.marketSubscription.isSubscribed) {
+    if (this.marketSubscription) {
       lightstream.unsubscribe(this.marketSubscription);
     }
 
@@ -120,18 +120,18 @@ export class LightstreamerAPI {
       onItemUpdate: (item: ItemUpdate) => {
         const epic = item.getItemName();
         const market: MarketData = {
-          midOpen: parseFloat(item.getValue(MarketFields.MID_OPEN)),
-          high: parseFloat(item.getValue(MarketFields.HIGH)),
-          low: parseFloat(item.getValue(MarketFields.LOW)),
+          bid: parseFloat(item.getValue(MarketFields.BID)),
           change: parseFloat(item.getValue(MarketFields.CHANGE)),
           changePct: parseFloat(item.getValue(MarketFields.CHANGE_PCT)),
-          updateTime: item.getValue(MarketFields.UPDATE_TIME),
+          high: parseFloat(item.getValue(MarketFields.HIGH)),
+          low: parseFloat(item.getValue(MarketFields.LOW)),
           marketDelay: parseFloat(item.getValue(MarketFields.MARKET_DELAY)),
           marketState: item.getValue(MarketFields.MARKET_STATE),
-          bid: parseFloat(item.getValue(MarketFields.BID)),
+          midOpen: parseFloat(item.getValue(MarketFields.MID_OPEN)),
+          odds: parseFloat(item.getValue(MarketFields.ODDS)),
           offer: parseFloat(item.getValue(MarketFields.OFFER)),
           strikePrice: parseFloat(item.getValue(MarketFields.STRIKE_PRICE)),
-          odds: parseFloat(item.getValue(MarketFields.ODDS)),
+          updateTime: item.getValue(MarketFields.UPDATE_TIME),
         };
 
         onMarketUpdate(epic, market);
